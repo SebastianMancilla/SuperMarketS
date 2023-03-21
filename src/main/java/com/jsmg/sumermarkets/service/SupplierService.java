@@ -39,4 +39,40 @@ public class SupplierService {
                 .products(supplier.get().getProducts())
                 .build();
     }
+
+    public Supplier save(SupplierDTO supplierDTO){
+        if(supplierDTO.getNameSupplier().isEmpty()){
+            throw new BadRequestExep("El dato 'Nombre', es obligatorio");
+        }
+        if(supplierDTO.getMailAddress().isEmpty()){
+            throw new BadRequestExep("El dato 'Corre', es obligatorio");
+        }
+
+        return supplierRepository.save(new Supplier(supplierDTO));
+    }
+
+    public Supplier update(SupplierDTO dto, Long id){
+        Optional<Supplier> supplier = supplierRepository.findById(id);
+        if(supplier.isEmpty()){
+            throw new BadRequestExep("El id no esta disponible en la base de datos");
+        }
+        SupplierDTO supplierDTO = SupplierDTO.builder()
+                .id(supplier.get().getId())
+                .nameSupplier(dto.getNameSupplier())
+                .addressSupplier(dto.getAddressSupplier())
+                .phoneSupplier(dto.getPhoneSupplier())
+                .mailAddress(dto.getMailAddress())
+                .products(supplier.get().getProducts())
+                .build();
+
+        return  supplierRepository.save(new Supplier(supplierDTO));
+    }
+
+    public void delete(Long id){
+        Optional<Supplier> supplier = supplierRepository.findById(id);
+        if(supplier.isEmpty()){
+            throw new BadRequestExep("El id no esta disponible en la base de datos");
+        }
+        supplierRepository.deleteById(id);
+    }
 }

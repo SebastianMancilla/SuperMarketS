@@ -6,10 +6,7 @@ import com.jsmg.sumermarkets.service.SupplierService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,21 @@ public class SupplierController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<SupplierDTO> getSupplierById(@PathVariable Long id){
         return  new ResponseEntity<>(supplierService.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<Supplier> createNewSupplier(@RequestBody SupplierDTO supplierDTO){
+        return  new ResponseEntity<>(supplierService.save(supplierDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Supplier> editSupplier(@RequestBody SupplierDTO supplierDTO,@PathVariable Long id){
+        return new ResponseEntity<>(supplierService.update(supplierDTO, id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public  ResponseEntity<Supplier> deleteSupplier(@PathVariable Long id){
+        supplierService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
