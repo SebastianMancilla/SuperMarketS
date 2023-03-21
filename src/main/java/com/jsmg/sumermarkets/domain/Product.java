@@ -1,6 +1,9 @@
 package com.jsmg.sumermarkets.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jsmg.sumermarkets.dto.ProductDTO;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
@@ -10,8 +13,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Product")
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product{
@@ -25,7 +27,7 @@ public class Product{
     private BigDecimal price;
     private Integer existence;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplierId;

@@ -1,5 +1,8 @@
 package com.jsmg.sumermarkets.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jsmg.sumermarkets.dto.SupplierDTO;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +23,7 @@ public class Supplier{
     private String addressSupplier;
     private String phoneSupplier;
     private String mailAddress;
+    @JsonManagedReference
     @OneToMany(mappedBy = "supplierId")
     private List<Product> products;
 

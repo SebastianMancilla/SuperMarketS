@@ -1,6 +1,6 @@
 package com.jsmg.sumermarkets.dto;
 
-import com.jsmg.sumermarkets.domain.Product;
+import com.jsmg.sumermarkets.domain.Product;;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @Builder
 @Jacksonized
+@NoArgsConstructor
 @AllArgsConstructor
 public class SupplierDTO {
     private Long id;
